@@ -124,6 +124,55 @@
         
     </entry>
     
+    <entry>
+      <title><![CDATA[Git-2个分支间的切换保存]]></title>
+      <url>/2017/03/27/Git-2%E4%B8%AA%E5%88%86%E6%94%AF%E9%97%B4%E7%9A%84%E5%88%87%E6%8D%A2%E4%BF%9D%E5%AD%98/</url>
+      <content type="html"><![CDATA[<h3 id="Git-2个分支间的切换保存"><a href="#Git-2个分支间的切换保存" class="headerlink" title="Git-2个分支间的切换保存"></a>Git-2个分支间的切换保存</h3><p>最近我们公司要对项目某部分进行代码重构，但是时不时又会有新的需求更开发。于是有了在两个分支之间游走切换的问题，在refactorig上进行重构，在master上进行原项目的新需求开发。</p>
+<h4 id="我新建refactorig分支并推送到远程仓库"><a href="#我新建refactorig分支并推送到远程仓库" class="headerlink" title="我新建refactorig分支并推送到远程仓库"></a>我新建refactorig分支并推送到远程仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">创建并切换到此分支</div><div class="line">git branch refactoring</div><div class="line">git checkout -b refactoring</div><div class="line"></div><div class="line">// or</div><div class="line"></div><div class="line">git checkout -b refactoring   </div><div class="line"></div><div class="line">then推送到远程仓库</div><div class="line"></div><div class="line">git push orgin refactoring</div></pre></td></tr></table></figure>
+<h4 id="我新建了分支到远程仓库，但是你本地git-branch-查不到？"><a href="#我新建了分支到远程仓库，但是你本地git-branch-查不到？" class="headerlink" title="我新建了分支到远程仓库，但是你本地git branch 查不到？"></a>我新建了分支到远程仓库，但是你本地git branch 查不到？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git fetch origin refacoring</div><div class="line">git branch refacoring</div><div class="line"></div><div class="line">or</div><div class="line"></div><div class="line">git fetch origin refacoring:refacoring</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用远程refacoring分支在本地创建refacoring(但不会切换到该分支),<br>如果本地不存在refacoring分支, 则会自动创建一个新的refacoring分支,<br>如果本地存在refacoring分支, 并且是`fast forward’, 则自动合并两个分支, 否则, 会阻止以上操作。</p>
+</blockquote>
+<h4 id="方法1：切换保存"><a href="#方法1：切换保存" class="headerlink" title="方法1：切换保存"></a>方法1：切换保存</h4><p>当我在进行重构的时候，这时候新需求下来了，我肯定得去先把新需求搞定吧，但是我的重构某一功能写到一半，还没测试，push上去恐怕会影响到别人，那肿办？</p>
+<ul>
+<li>先把正在进行的refactoring </li>
+<li>commit掉</li>
+<li>不push</li>
+<li>切换到 master分支  git checkout master</li>
+<li>做完了commit </li>
+<li>再切回去你的refactoring</li>
+</ul>
+<blockquote>
+<p>这是理想的办法，互不影响。<br>别担心refactoring和master的本地代码会互相影响到，你切换分支的时候，本地代码也会切换的。</p>
+</blockquote>
+<h4 id="方法2：使用git-stash"><a href="#方法2：使用git-stash" class="headerlink" title="方法2：使用git stash"></a>方法2：使用git stash</h4><p>先把正在进行的refactoring：</p>
+<ul>
+<li>git stash / git stash save “修改的信息”<br>( 这样以后你的代码就回到了自己上一个commit了，直接git stash的话git stash的栈会给你一个hash值作为版本说明，如果你有填写“修改的信息”，git stash的栈会把你填写的信息作为版本的说明。)</li>
+<li>接下来你回到master分支修改完成，你又再回到refactoring分支，输入</li>
+<li>git stash pop / git stash list ( 就可以回到保存的版本了。git stash pop的作用是将git stash栈中最后一个版本取出来。)</li>
+</ul>
+<h3 id="合并问题"><a href="#合并问题" class="headerlink" title="合并问题"></a>合并问题</h3><ul>
+<li>master 进化到了 master2</li>
+<li>refactoring 进化到了 refactoring2</li>
+</ul>
+<h4 id="方法1：直接merge"><a href="#方法1：直接merge" class="headerlink" title="方法1：直接merge"></a>方法1：直接merge</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git checkout master</div><div class="line">git merge refactoring</div><div class="line"></div><div class="line">然后安心删除refactoring分支</div><div class="line">git branch -d refactoring</div></pre></td></tr></table></figure>
+<h4 id="方法2：让分支历史看起来像没有经过任何合并一样"><a href="#方法2：让分支历史看起来像没有经过任何合并一样" class="headerlink" title="方法2：让分支历史看起来像没有经过任何合并一样"></a>方法2：让分支历史看起来像没有经过任何合并一样</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git checkout refactoring</div><div class="line">git rebase origin</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这些命令会把你的”refactoring”分支里的每个提交(commit)取消掉，并且把它们临时 保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”refactoring”分支更新 为最新的”origin”分支，最后把保存的这些补丁应用到”refactoring”分支上。</p>
+</blockquote>
+<h3 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">解决冲突 手动解决</div><div class="line">再 git add .</div><div class="line">git commit</div></pre></td></tr></table></figure>
+<h4 id="rebase的过程中，也许会出现冲突-conflict"><a href="#rebase的过程中，也许会出现冲突-conflict" class="headerlink" title="rebase的过程中，也许会出现冲突(conflict)"></a>rebase的过程中，也许会出现冲突(conflict)</h4><p>在这种情况，Git会停止rebase并会让你去解决 冲突；在解决完冲突后，用”git-add”命令去更新这些内容的索引(index), 然后，你无需执行 git-commit,只要执行:<br>$ git rebase –continue<br>这样git会继续应用(apply)余下的补丁。<br>在任何时候，你可以用–abort参数来终止rebase的行动，并且”refactoring” 分支会回到rebase开始前的状态。<br>$ git rebase –abort</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 随笔 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
   
   
 </search>
