@@ -79,21 +79,17 @@
 
 
 
-<meta name="description" content="一个完整的HTTP请求例子：请求方法:GET/sample.jsp   HTTP/1.1   (方法 / url / 协议 / 版本)请求头: Accept:image/gif.image/jpeg,/   (告诉WEB服务器自己接受什么介质类型，/ 表示任何类型，type/* 表示该类型下的所有子类型)Accept-Language:zh-cn   (浏览器申明自己接收的语言 )Connecti">
+<meta name="description" content="开发者基于JS-JDK可以方便的从浏览器端上传文件至七牛云存储，并对上传成功后的图片进行丰富的数据处理操作  详见https://github.com/qiniu/js-sdk#faq  开发中发现的问题是：当我在文件过滤的时候限制某格式的上传（如下代码所示），当我选择不符合规格的文件时，qiniu会直接走ERROR，并中止当前正在上传的文件，直接执行下一份文件，直至所有文件都上传完毕。但是被">
 <meta property="og:type" content="article">
-<meta property="og:title" content="客户端向服务器发起http请求的请求信息详解">
-<meta property="og:url" content="https://laipp.github.io/2017/05/27/客户端向服务器发起http请求的请求信息/index.html">
+<meta property="og:title" content="七牛云多文件上传格式不正确导致上传中断">
+<meta property="og:url" content="https://laipp.github.io/2017/12/18/七牛云上传bug/index.html">
 <meta property="og:site_name" content="lpp&#39;s blog">
-<meta property="og:description" content="一个完整的HTTP请求例子：请求方法:GET/sample.jsp   HTTP/1.1   (方法 / url / 协议 / 版本)请求头: Accept:image/gif.image/jpeg,/   (告诉WEB服务器自己接受什么介质类型，/ 表示任何类型，type/* 表示该类型下的所有子类型)Accept-Language:zh-cn   (浏览器申明自己接收的语言 )Connecti">
+<meta property="og:description" content="开发者基于JS-JDK可以方便的从浏览器端上传文件至七牛云存储，并对上传成功后的图片进行丰富的数据处理操作  详见https://github.com/qiniu/js-sdk#faq  开发中发现的问题是：当我在文件过滤的时候限制某格式的上传（如下代码所示），当我选择不符合规格的文件时，qiniu会直接走ERROR，并中止当前正在上传的文件，直接执行下一份文件，直至所有文件都上传完毕。但是被">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://laipp.github.io/2017/05/27/images/http1.jpg">
-<meta property="og:image" content="https://laipp.github.io/2017/05/27/images/http2.gif">
-<meta property="og:image" content="https://laipp.github.io/2017/05/27/images/http3.gif">
-<meta property="og:updated_time" content="2017-12-18T07:53:10.000Z">
+<meta property="og:updated_time" content="2017-12-18T09:37:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="客户端向服务器发起http请求的请求信息详解">
-<meta name="twitter:description" content="一个完整的HTTP请求例子：请求方法:GET/sample.jsp   HTTP/1.1   (方法 / url / 协议 / 版本)请求头: Accept:image/gif.image/jpeg,/   (告诉WEB服务器自己接受什么介质类型，/ 表示任何类型，type/* 表示该类型下的所有子类型)Accept-Language:zh-cn   (浏览器申明自己接收的语言 )Connecti">
-<meta name="twitter:image" content="https://laipp.github.io/2017/05/27/images/http1.jpg">
+<meta name="twitter:title" content="七牛云多文件上传格式不正确导致上传中断">
+<meta name="twitter:description" content="开发者基于JS-JDK可以方便的从浏览器端上传文件至七牛云存储，并对上传成功后的图片进行丰富的数据处理操作  详见https://github.com/qiniu/js-sdk#faq  开发中发现的问题是：当我在文件过滤的时候限制某格式的上传（如下代码所示），当我选择不符合规格的文件时，qiniu会直接走ERROR，并中止当前正在上传的文件，直接执行下一份文件，直至所有文件都上传完毕。但是被">
 
 
 
@@ -123,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://laipp.github.io/2017/05/27/客户端向服务器发起http请求的请求信息/"/>
+  <link rel="canonical" href="https://laipp.github.io/2017/12/18/七牛云上传bug/"/>
 
 
 
 
 
-  <title>客户端向服务器发起http请求的请求信息详解 | lpp's blog</title>
+  <title>七牛云多文件上传格式不正确导致上传中断 | lpp's blog</title>
   
 
 
@@ -266,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laipp.github.io/2017/05/27/客户端向服务器发起http请求的请求信息/">
+    <link itemprop="mainEntityOfPage" href="https://laipp.github.io/2017/12/18/七牛云上传bug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="laipp">
@@ -283,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">客户端向服务器发起http请求的请求信息详解</h1>
+          <h1 class="post-title" itemprop="name headline">七牛云多文件上传格式不正确导致上传中断</h1>
         
 
         <div class="post-meta">
@@ -295,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-27T23:33:02+08:00">
-                2017-05-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-18T15:54:09+08:00">
+                2017-12-18
               </time>
             
 
@@ -318,8 +314,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/dailyBugs/" itemprop="url" rel="index">
+                    <span itemprop="name">dailyBugs</span>
                   </a>
                 </span>
 
@@ -355,10 +351,12 @@
       
 
       
-        <h3 id="一个完整的HTTP请求例子："><a href="#一个完整的HTTP请求例子：" class="headerlink" title="一个完整的HTTP请求例子："></a>一个完整的HTTP请求例子：</h3><p>请求方法:<br>GET/sample.jsp   HTTP/1.1   (方法 / url / 协议 / 版本)<br>请求头:<br> Accept:image/gif.image/jpeg,<em>/</em>   (告诉WEB服务器自己接受什么介质类型，<em>/</em> 表示任何类型，type/* 表示该类型下的所有子类型)<br>Accept-Language:zh-cn   (浏览器申明自己接收的语言 )<br>Connection:Keep-Alive<br>Host:localhost<br>User-Agent:Mozila/4.0(compatible;MSIE5.01;Window NT5.0)<br>Accept-Encoding:gzip,deflate   (浏览器申明自己接收的编码方法，通常指定压缩方法，是否支持压缩，支持什么压缩方法（gzip，deflate）)<br>请求正文: 包含客户提交的查询字符串信息<br>username=laipp&amp;password=123456</p>
-<h3 id="详解-keep-alive"><a href="#详解-keep-alive" class="headerlink" title="详解 keep-alive"></a>详解 keep-alive</h3><p>HTTP协议采用“请求-应答”模式，当使用普通模式，即非KeepAlive模式时，每个请求/应答客户和服务器都要新建一个连接，完成之后立即断开连接（HTTP协议为无连接的协议）；当使用Keep-Alive模式（又称持久连接、连接重用）时，Keep-Alive功能使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive性能更高,因为避免了建立/释放连接的开销<br><img src="../images/http1.jpg" alt="keep-alive"></p>
-<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>第一次(客户端向服务器端say hi)<br>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。<br>第二次(服务器端跟客户端说:我收到你的sayhello了,你可以开始发请求了)<br>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；<br>第三次(客户端向服务器端说:好的 !)<br>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。<br><img src="../images/http2.gif" alt=""></p>
-<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次挥手”。<br>1.第一次挥手：主机1(可以使客户端，也可以是服务器端)，设置Sequence Number和Acknowledgment Number，向主机2发送一个FIN报文段;此时，主机1进入FIN_WAIT_1状态;这表示主机1没有数据要发送给主机2了;<br>2.第二次挥手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1;主机1进入FIN_WAIT_2状态;主机2告诉主机1，我也没有数据要发送了，可以进行关闭连接了;<br>3.第三次挥手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入CLOSE_WAIT状态;<br>4.第四次挥手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态;主机2收到主机1的ACK报文段以后，就关闭连接;此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。<br>至此，TCP的四次挥手就这么愉快的完成了。<br>大白话解释 :<br> 断开的时候,没有指定一定是客户端才能发出断开请求.谁都可以.<br> 第一步: A跟B说:我要断开请求了;<br> 第二步: B跟A说:我收到你的断开请求了.但是我还有数据没有发给你;<br> 第三步: B跟A说:我的数据发完了,可以断开请求了;<br> 第四步: A跟B说: 收到,断开!;<br> <img src="../images/http3.gif" alt=""></p>
+        <p>开发者基于JS-JDK可以方便的从浏览器端上传文件至七牛云存储，并对上传成功后的图片进行丰富的数据处理操作</p>
+<blockquote>
+<p>详见<a href="https://github.com/qiniu/js-sdk#faq" target="_blank" rel="external">https://github.com/qiniu/js-sdk#faq</a></p>
+</blockquote>
+<p>开发中发现的问题是：当我在文件过滤的时候限制某格式的上传（如下代码所示），当我选择不符合规格的文件时，qiniu会直接走ERROR，并中止当前正在上传的文件，直接执行下一份文件，直至所有文件都上传完毕。但是被中止的这份文件是无辜的，我们得让它跟上大部队的步伐。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">var uploader = Qiniu.uploader(&#123;</div><div class="line">    filters: &#123; </div><div class="line">        max_file_size: &apos;150mb&apos;, //最大文件体积限制</div><div class="line">        prevent_duplicates: true,</div><div class="line">        // 限制可以上传的文件格式 </div><div class="line">        mime_types: [&#123;</div><div class="line">                title: &quot;video files&quot;,</div><div class="line">                extensions: &quot;mp4,avi,mkv,wmv,flv&quot; </div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                title: &quot;audio files&quot;,</div><div class="line">                extensions: &quot;mp3&quot;</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                title: &quot;image files&quot;,</div><div class="line">                extensions: &quot;jpg,jpeg,png,gif,bmp&quot;</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                title: &quot;word files&quot;,</div><div class="line">                extensions: &quot;doc,docx,ppt,pptx,xls,xlsx,csv,pdf,wps,et,dps,application/x-ppt&quot; //因上传组件自定义格式支持有限，部分格式文件不显示，故最后一项使其不能识别，则显示全部文件。</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    init: &#123;</div><div class="line">            &apos;FilesAdded&apos;: function(up, files) &#123;</div><div class="line">                plupload.each(files, function(file) &#123;</div><div class="line">                    // 文件添加进队列后,处理相关的事情</div><div class="line">                &#125;);</div><div class="line">            &#125;,</div><div class="line">            &apos;BeforeUpload&apos;: function(up, file) &#123;</div><div class="line">                // 每个文件上传前,处理相关的事情</div><div class="line">            &#125;,</div><div class="line">            &apos;UploadProgress&apos;: function(up, file) &#123;</div><div class="line">                // 每个文件上传时,处理相关的事情</div><div class="line">            &#125;,</div><div class="line">            &apos;FileUploaded&apos;: function(up, file, info) &#123;</div><div class="line">                // 每个文件上传成功后,处理相关的事情</div><div class="line">            &#125;,</div><div class="line">            &apos;Error&apos;: function(up, err, errTip) &#123;</div><div class="line">                //上传出错时,处理相关的事情</div><div class="line">            &#125;,</div><div class="line">            &apos;UploadComplete&apos;: function() &#123;</div><div class="line">                //队列文件处理完毕后,处理相关的事情</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>解决思路<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&apos;FileUploaded&apos;: function(up, file, info) &#123;</div><div class="line">    // 给每个上传成功的文件加一个标记类</div><div class="line">    $(&apos;#&apos;+file.id).addClass(&apos;finished&apos;);</div><div class="line">&#125;,</div><div class="line">&apos;UploadComplete&apos;: function() &#123;</div><div class="line">    // 当队列显示全部处理完后，循环检测一遍数据，是否有未完成标记,有则重新执行，重新执行过程中会自动跳过已成功的文件，从而达到全部上传的效果。</div><div class="line">    plupload.each(files, function (file) &#123;</div><div class="line">        if (!$(&apos;#&apos; + file.id).hasClass(&apos;finished&apos;)) &#123;</div><div class="line">            uploader.start();</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -383,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/24/ubuntu+nginx 下小幺鸡的安装/" rel="next" title="ubuntu+nginx 下小幺鸡的安装">
-                <i class="fa fa-chevron-left"></i> ubuntu+nginx 下小幺鸡的安装
+              <a href="/2017/10/17/hexo+github简易搭建blog/" rel="next" title="hexo+gihub简易搭建个人博客">
+                <i class="fa fa-chevron-left"></i> hexo+gihub简易搭建个人博客
               </a>
             
           </div>
@@ -392,10 +390,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/17/hexo+github简易搭建blog/" rel="prev" title="hexo+gihub简易搭建个人博客">
-                hexo+gihub简易搭建个人博客 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -447,17 +441,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -514,22 +499,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个完整的HTTP请求例子："><span class="nav-number">1.</span> <span class="nav-text">一个完整的HTTP请求例子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详解-keep-alive"><span class="nav-number">2.</span> <span class="nav-text">详解 keep-alive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">3.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">4.</span> <span class="nav-text">四次挥手</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
