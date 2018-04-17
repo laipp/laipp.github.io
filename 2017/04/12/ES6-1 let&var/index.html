@@ -81,14 +81,14 @@
 
 <meta name="description" content="JS 是没有块级作用域的1234567var arr = [];for (var i = 0; i &amp;lt; 10; i++) &amp;#123;  arr[i] = function () &amp;#123;    return i;  &amp;#125;;&amp;#125;arr[3](); // 10 因为 ES5 及之前是没有块级作用域的，i 所处的仍是全局作用域而不是块级作用域。因此，循环过程中数组 arr 的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6 之 let &amp; var">
+<meta property="og:title" content="ES6 之 let &amp; var &amp; const">
 <meta property="og:url" content="https://laipp.github.io/2017/04/12/ES6-1 let&var/index.html">
 <meta property="og:site_name" content="lpp&#39;s blog">
 <meta property="og:description" content="JS 是没有块级作用域的1234567var arr = [];for (var i = 0; i &amp;lt; 10; i++) &amp;#123;  arr[i] = function () &amp;#123;    return i;  &amp;#125;;&amp;#125;arr[3](); // 10 因为 ES5 及之前是没有块级作用域的，i 所处的仍是全局作用域而不是块级作用域。因此，循环过程中数组 arr 的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-17T14:42:31.000Z">
+<meta property="og:updated_time" content="2018-04-17T14:57:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6 之 let &amp; var">
+<meta name="twitter:title" content="ES6 之 let &amp; var &amp; const">
 <meta name="twitter:description" content="JS 是没有块级作用域的1234567var arr = [];for (var i = 0; i &amp;lt; 10; i++) &amp;#123;  arr[i] = function () &amp;#123;    return i;  &amp;#125;;&amp;#125;arr[3](); // 10 因为 ES5 及之前是没有块级作用域的，i 所处的仍是全局作用域而不是块级作用域。因此，循环过程中数组 arr 的">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>ES6 之 let & var | lpp's blog</title>
+  <title>ES6 之 let & var & const | lpp's blog</title>
   
 
 
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6 之 let & var</h1>
+          <h1 class="post-title" itemprop="name headline">ES6 之 let & var & const</h1>
         
 
         <div class="post-meta">
@@ -365,6 +365,22 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">(function()&#123;</div><div class="line">   var a;</div><div class="line">   alert(a);</div><div class="line">   a = 2;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
 <p>而 let</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">(function()&#123;</div><div class="line">   alert(a);</div><div class="line">   let a = 2;</div><div class="line">&#125;)();   // 结果：报错a未定义</div></pre></td></tr></table></figure>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>即constant常量</p>
+<ul>
+<li><p>不可修改,不可重复声明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const NAME = &apos;lpp&apos;;</div><div class="line">const NAME = &apos;AB&apos;; // Error</div><div class="line">NAME = &apos;apple&apos;; // Error</div></pre></td></tr></table></figure>
+</li>
+<li><p>只在块级作用域起作用，这点与let关键字一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    const NAME = &apos;lpp&apos;;</div><div class="line">&#125;</div><div class="line">console.log(NAME); // Error</div></pre></td></tr></table></figure>
+</li>
+<li><p>不存在变量提升，必须先声明后使用，跟let关键字一样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(NAME); // Error</div><div class="line">const NAME = &apos;lpp&apos;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>声明后必须要赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const NAME; // Error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>const也是用于声明一个常量，并必须赋值，声明后不可修改，跟let一样，只在块级作用域起作用，不可重复声明同一个变量，不会变量提升，声明引用类型的常量时，要注意是传址赋值。</p>
 
       
     </div>
@@ -530,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-是没有块级作用域的"><span class="nav-number">1.</span> <span class="nav-text">JS 是没有块级作用域的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法："><span class="nav-number">1.1.</span> <span class="nav-text">解决方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-的出现使得-JavaScript-终于拥有了块级作用域。"><span class="nav-number">2.</span> <span class="nav-text">let 的出现使得 JavaScript 终于拥有了块级作用域。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-没有变量提升"><span class="nav-number">3.</span> <span class="nav-text">let 没有变量提升</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-是没有块级作用域的"><span class="nav-number">1.</span> <span class="nav-text">JS 是没有块级作用域的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法："><span class="nav-number">1.1.</span> <span class="nav-text">解决方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-的出现使得-JavaScript-终于拥有了块级作用域。"><span class="nav-number">2.</span> <span class="nav-text">let 的出现使得 JavaScript 终于拥有了块级作用域。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-没有变量提升"><span class="nav-number">3.</span> <span class="nav-text">let 没有变量提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#const"><span class="nav-number">4.</span> <span class="nav-text">const</span></a></li></ol></div>
             
 
           </div>
