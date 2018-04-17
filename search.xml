@@ -271,7 +271,7 @@
     <entry>
       <title><![CDATA[闭包]]></title>
       <url>/2016/12/13/%E9%97%AD%E5%8C%85/</url>
-      <content type="html"><![CDATA[<h3 id="关于闭包"><a href="#关于闭包" class="headerlink" title="关于闭包"></a>关于闭包</h3><h4 id="闭包-——-有权访问另一个函数作用域中的变量的函数"><a href="#闭包-——-有权访问另一个函数作用域中的变量的函数" class="headerlink" title="闭包 —— 有权访问另一个函数作用域中的变量的函数"></a>闭包 —— 有权访问另一个函数作用域中的变量的函数</h4><p>即要满足以下四个条件</p>
+      <content type="html"><![CDATA[<h3 id="闭包-——-有权访问另一个函数作用域中的变量的函数"><a href="#闭包-——-有权访问另一个函数作用域中的变量的函数" class="headerlink" title="闭包 —— 有权访问另一个函数作用域中的变量的函数"></a>闭包 —— 有权访问另一个函数作用域中的变量的函数</h3><p>即要满足以下四个条件</p>
 <ul>
 <li>函数A套函数B</li>
 <li>函数A中有一个变量a</li>
@@ -280,7 +280,7 @@
 </li>
 </ul>
 <p>函数B嵌套在函数A内部；函数A返回函数B。这样在执行完var C=A( )后，变量C实际上是指向了函数B，再执行C( )后就会返回值a。这段代码其实就创建了一个闭包，因为函数A外的变量C引用了函数A内的函数B，也就是说：当函数A的内部函数B被函数A外的一个变量引用的时候，就创建了一个闭包。</p>
-<h4 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a>闭包的注意事项</h4><p>通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。但是，在创建了一个闭包以后，这个函数的作用域就会一直保存到闭包不存在为止。</p>
+<h3 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a>闭包的注意事项</h3><p>通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。但是，在创建了一个闭包以后，这个函数的作用域就会一直保存到闭包不存在为止。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function makeAdder(x) &#123;</div><div class="line">  return function(y) &#123;</div><div class="line">    return x + y;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var add5 = makeAdder(5);</div><div class="line">var add10 = makeAdder(10);</div><div class="line"></div><div class="line">console.log(add5(2));  // 7</div><div class="line">console.log(add10(2)); // 12</div><div class="line"></div><div class="line">// 释放对闭包的引用</div><div class="line">add5 = null;</div><div class="line">add10 = null;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>add5 和 add10 都是闭包。它们共享相同的函数定义，但是保存了不同的环境。在 add5 的环境中，x 为 5。而在 add10 中，x 则为 10。最后通过 null 释放了 add5 和 add10 对闭包的引用。</p>
