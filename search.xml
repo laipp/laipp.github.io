@@ -193,8 +193,9 @@
 <li><p>声明后必须要赋值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const NAME; // Error</div></pre></td></tr></table></figure>
 </li>
+<li><p>对象赋值后可以修改，因为对象存的是地址。</p>
+</li>
 </ul>
-<p>const也是用于声明一个常量，并必须赋值，声明后不可修改，跟let一样，只在块级作用域起作用，不可重复声明同一个变量，不会变量提升，声明引用类型的常量时，要注意是传址赋值。</p>
 ]]></content>
       
         <categories>
