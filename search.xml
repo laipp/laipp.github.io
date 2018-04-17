@@ -163,6 +163,34 @@
     </entry>
     
     <entry>
+      <title><![CDATA[ES6 之 let & var]]></title>
+      <url>/2017/04/12/ES6-1%20let&amp;var/</url>
+      <content type="html"><![CDATA[<h2 id="JS-是没有块级作用域的"><a href="#JS-是没有块级作用域的" class="headerlink" title="JS 是没有块级作用域的"></a>JS 是没有块级作用域的</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var arr = [];</div><div class="line">for (var i = 0; i &lt; 10; i++) &#123;</div><div class="line">  arr[i] = function () &#123;</div><div class="line">    return i;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">arr[3](); // 10</div></pre></td></tr></table></figure>
+<p>因为 ES5 及之前是没有块级作用域的，i 所处的仍是全局作用域而不是块级作用域。因此，循环过程中数组 arr 的每个数组项所引用的函数中的变量 i 都是引用全局作用域中的 i，因此 arr3 中 i 为 for 循环结束时的 i 的值 10。</p>
+<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><p>利用匿名函数的自我执行。这个时候的 i 只是函数参数，而函数参数是按值传递的（不是按引用传递），所以这个时候匿名函数被强制执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var arr = [];</div><div class="line">for (var i = 0; i &lt; 10; i++) &#123;</div><div class="line">    arr[i] = function(num)&#123;</div><div class="line">        return function()&#123;</div><div class="line">            return num;</div><div class="line">        &#125;</div><div class="line">    &#125;(i);</div><div class="line">&#125;</div><div class="line">arr[3](); // 3</div></pre></td></tr></table></figure>
+<p>ES5 中在 for、if、while 等语句内部的声明的变量与在外部声明是一样的，在这些语句外部也可以访问和修改这些变量的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function fun() &#123;</div><div class="line">    if(0 &lt; 2) &#123;</div><div class="line">        var name = &quot;jeri&quot;;</div><div class="line">    &#125;  </div><div class="line">    console.log(name); // jeri</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="let-的出现使得-JavaScript-终于拥有了块级作用域。"><a href="#let-的出现使得-JavaScript-终于拥有了块级作用域。" class="headerlink" title="let 的出现使得 JavaScript 终于拥有了块级作用域。"></a>let 的出现使得 JavaScript 终于拥有了块级作用域。</h2><p>当我们在一个代码块中使用 let 来声明变量，通过 let 声明的变量只在当前块作用域中有效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    let a = 1;</div><div class="line">    var b = 2;</div><div class="line">&#125;</div><div class="line">console.log(a); //ReferenceError</div><div class="line">console.log(b); //2</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">    let a = 1;</div><div class="line">    if(true)&#123;</div><div class="line">        let a = 2;</div><div class="line">        console.log(a); //2</div><div class="line">    &#125;</div><div class="line">    console.log(a); //1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="let-没有变量提升"><a href="#let-没有变量提升" class="headerlink" title="let 没有变量提升"></a>let 没有变量提升</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">(function()&#123;</div><div class="line">   alert(a);</div><div class="line">   var a = 2;</div><div class="line">&#125;)();//结果：undefined</div></pre></td></tr></table></figure>
+<p>因为 var 的变量提升,上面代码等同于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">(function()&#123;</div><div class="line">   var a;</div><div class="line">   alert(a);</div><div class="line">   a = 2;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<p>而 let</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = 1;</div><div class="line">(function()&#123;</div><div class="line">   alert(a);</div><div class="line">   let a = 2;</div><div class="line">&#125;)();   // 结果：报错a未定义</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 随笔 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Git-2个分支间的切换保存]]></title>
       <url>/2017/03/27/Git-2%E4%B8%AA%E5%88%86%E6%94%AF%E9%97%B4%E7%9A%84%E5%88%87%E6%8D%A2%E4%BF%9D%E5%AD%98/</url>
       <content type="html"><![CDATA[<p>最近我们公司要对项目某部分进行代码重构，但是时不时又会有新的需求更开发。于是有了在两个分支之间游走切换的问题，在refactoring上进行重构，在master上进行原项目的新需求开发。</p>
@@ -229,6 +257,48 @@
 <p>对于string,number等基础类型，“==“ 和 ”===” 是有区别的。不同类型间比较，“==”会自动转换成同一类型后的值看“值”是否相等，“===“如果类型不同，其结果就是不等。</p>
 <p>对于Array,Object等高级类型在比较相等时都会进行指针比较,所以”==”和”===”是没有区别的。</p>
 <p>我们是现今是要比较这2份数据内容是否相同，而不是比较这2个对象，所以需要再转换成字符串比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">console.log(JSON.stringify(obj1) == JSON.stringify(obj2)) // true</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 随笔 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[闭包]]></title>
+      <url>/2016/12/13/%E9%97%AD%E5%8C%85/</url>
+      <content type="html"><![CDATA[<h3 id="关于闭包"><a href="#关于闭包" class="headerlink" title="关于闭包"></a>关于闭包</h3><h4 id="闭包-——-有权访问另一个函数作用域中的变量的函数"><a href="#闭包-——-有权访问另一个函数作用域中的变量的函数" class="headerlink" title="闭包 —— 有权访问另一个函数作用域中的变量的函数"></a>闭包 —— 有权访问另一个函数作用域中的变量的函数</h4><p>即要满足以下四个条件</p>
+<ul>
+<li>函数A套函数B</li>
+<li>函数A中有一个变量a</li>
+<li>函数B引用变量a</li>
+<li>当函数B在定义它的作用域A以外的地方被调用时，它访问的依然是定义它时的作用域A。这种现象称之为闭包。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function A()&#123;</div><div class="line">  var a = 1;</div><div class="line">  </div><div class="line">  function B()&#123;</div><div class="line">    return a;</div><div class="line">  &#125;</div><div class="line">  return B;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var C=A();</div><div class="line">C();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>函数B嵌套在函数A内部；函数A返回函数B。这样在执行完var C=A( )后，变量C实际上是指向了函数B，再执行C( )后就会返回值a。这段代码其实就创建了一个闭包，因为函数A外的变量C引用了函数A内的函数B，也就是说：当函数A的内部函数B被函数A外的一个变量引用的时候，就创建了一个闭包。</p>
+<h4 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a>闭包的注意事项</h4><p>通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。但是，在创建了一个闭包以后，这个函数的作用域就会一直保存到闭包不存在为止。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function makeAdder(x) &#123;</div><div class="line">  return function(y) &#123;</div><div class="line">    return x + y;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var add5 = makeAdder(5);</div><div class="line">var add10 = makeAdder(10);</div><div class="line"></div><div class="line">console.log(add5(2));  // 7</div><div class="line">console.log(add10(2)); // 12</div><div class="line"></div><div class="line">// 释放对闭包的引用</div><div class="line">add5 = null;</div><div class="line">add10 = null;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>add5 和 add10 都是闭包。它们共享相同的函数定义，但是保存了不同的环境。在 add5 的环境中，x 为 5。而在 add10 中，x 则为 10。最后通过 null 释放了 add5 和 add10 对闭包的引用。</p>
+</blockquote>
+<p>闭包closure()只能取得包含函数func()中任何变量的最后一个值，这是因为闭包所保存的是整个变量对象，而不是某个特殊的变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">	var arr=[],i;</div><div class="line">	for(i=0;i&lt;3;i++)&#123;</div><div class="line">		arr[i] = function()&#123;</div><div class="line">			return i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return arr;</div><div class="line">&#125;</div><div class="line">var func = f();</div><div class="line"></div><div class="line"></div><div class="line">&gt; func</div><div class="line">结果：[function, function, function]</div><div class="line">&gt; func[0]</div><div class="line">结果:   function ()&#123;</div><div class="line">            return i;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>为什么是 i 而不是具体某个值？</p>
+<blockquote>
+<p>主要是因为闭包中局部变量是【引用】而不是拷贝，也就是说，这个时候的i仅仅只是i的引用而不是i的值。而因为是i的引用，所以到了外部函数执行完毕后（i已经加到10了），这个时候，i才被赋值给result数组，而此时，i的值为10</p>
+</blockquote>
+<p>再举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function say888() &#123;</div><div class="line">    var num = 887;</div><div class="line">    var sayAlert = function() &#123; alert(num); &#125;</div><div class="line">    num++;</div><div class="line">    return sayAlert;</div><div class="line">&#125;</div><div class="line"></div><div class="line">say888() =&gt; 888</div></pre></td></tr></table></figure>
+<p>如果要改变上面的那种情况，可以利用匿名函数的自我执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function createFunction ()&#123;</div><div class="line">    var result = new Array();</div><div class="line">    for(var i=0;i&lt;10;i++)&#123;</div><div class="line">        result[i] = function(num)&#123;</div><div class="line">    	    return function()&#123;</div><div class="line">    		return num;</div><div class="line">            &#125;</div><div class="line">	&#125;(i)</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这个时候的匿名函数相当于fn(0),fn(1),fn(2),<br>此时，数组result中保存的是函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">result[0]() = 0;</div><div class="line">result[1]() = 1;</div><div class="line">result[9]() = 9;</div></pre></td></tr></table></figure></p>
+<p>因为这个时候的 i 只是函数参数，而函数参数是按值传递的（不是按引用传递），所以这个时候匿名函数被强制执行。</p>
+</blockquote>
 ]]></content>
       
         <categories>

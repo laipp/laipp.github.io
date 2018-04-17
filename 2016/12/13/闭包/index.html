@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="最近接到一个需求，做一个学生答题成绩统计页，教师停留在统计查看页面时，能实时看到该班学生们的答题信息。由于页面有些进度条的加载效果，所以就不会每请求一次接口都重绘页面，只检测到数据有变化时才重绘。 所以现在设计成了每10s请求一次接口，将新数据与旧数据进行比较，判断是否有变化，有则重绘页面。 那么，如何将旧数据存储起来，再进行比较呢？ 这就涉及数据的拷贝，我们现在就需要对一个object对象进行深">
+<meta name="description" content="关于闭包闭包 —— 有权访问另一个函数作用域中的变量的函数即要满足以下四个条件  函数A套函数B 函数A中有一个变量a 函数B引用变量a 当函数B在定义它的作用域A以外的地方被调用时，它访问的依然是定义它时的作用域A。这种现象称之为闭包。1234567891011function A()&amp;#123;  var a = 1;    function B()&amp;#123;    return a;  &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅拷贝与深拷贝">
-<meta property="og:url" content="https://laipp.github.io/2017/03/15/浅拷贝与深拷贝/index.html">
+<meta property="og:title" content="闭包">
+<meta property="og:url" content="https://laipp.github.io/2016/12/13/闭包/index.html">
 <meta property="og:site_name" content="lpp&#39;s blog">
-<meta property="og:description" content="最近接到一个需求，做一个学生答题成绩统计页，教师停留在统计查看页面时，能实时看到该班学生们的答题信息。由于页面有些进度条的加载效果，所以就不会每请求一次接口都重绘页面，只检测到数据有变化时才重绘。 所以现在设计成了每10s请求一次接口，将新数据与旧数据进行比较，判断是否有变化，有则重绘页面。 那么，如何将旧数据存储起来，再进行比较呢？ 这就涉及数据的拷贝，我们现在就需要对一个object对象进行深">
+<meta property="og:description" content="关于闭包闭包 —— 有权访问另一个函数作用域中的变量的函数即要满足以下四个条件  函数A套函数B 函数A中有一个变量a 函数B引用变量a 当函数B在定义它的作用域A以外的地方被调用时，它访问的依然是定义它时的作用域A。这种现象称之为闭包。1234567891011function A()&amp;#123;  var a = 1;    function B()&amp;#123;    return a;  &amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-17T14:28:46.000Z">
+<meta property="og:updated_time" content="2018-04-17T14:44:05.616Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅拷贝与深拷贝">
-<meta name="twitter:description" content="最近接到一个需求，做一个学生答题成绩统计页，教师停留在统计查看页面时，能实时看到该班学生们的答题信息。由于页面有些进度条的加载效果，所以就不会每请求一次接口都重绘页面，只检测到数据有变化时才重绘。 所以现在设计成了每10s请求一次接口，将新数据与旧数据进行比较，判断是否有变化，有则重绘页面。 那么，如何将旧数据存储起来，再进行比较呢？ 这就涉及数据的拷贝，我们现在就需要对一个object对象进行深">
+<meta name="twitter:title" content="闭包">
+<meta name="twitter:description" content="关于闭包闭包 —— 有权访问另一个函数作用域中的变量的函数即要满足以下四个条件  函数A套函数B 函数A中有一个变量a 函数B引用变量a 当函数B在定义它的作用域A以外的地方被调用时，它访问的依然是定义它时的作用域A。这种现象称之为闭包。1234567891011function A()&amp;#123;  var a = 1;    function B()&amp;#123;    return a;  &amp;">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://laipp.github.io/2017/03/15/浅拷贝与深拷贝/"/>
+  <link rel="canonical" href="https://laipp.github.io/2016/12/13/闭包/"/>
 
 
 
 
 
-  <title>浅拷贝与深拷贝 | lpp's blog</title>
+  <title>闭包 | lpp's blog</title>
   
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laipp.github.io/2017/03/15/浅拷贝与深拷贝/">
+    <link itemprop="mainEntityOfPage" href="https://laipp.github.io/2016/12/13/闭包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="laipp">
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">浅拷贝与深拷贝</h1>
+          <h1 class="post-title" itemprop="name headline">闭包</h1>
         
 
         <div class="post-meta">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-15T20:00:22+08:00">
-                2017-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-13T17:30:00+08:00">
+                2016-12-13
               </time>
             
 
@@ -351,21 +351,34 @@
       
 
       
-        <p>最近接到一个需求，做一个学生答题成绩统计页，教师停留在统计查看页面时，能实时看到该班学生们的答题信息。由于页面有些进度条的加载效果，所以就不会每请求一次接口都重绘页面，只检测到数据有变化时才重绘。</p>
-<p>所以现在设计成了每10s请求一次接口，将新数据与旧数据进行比较，判断是否有变化，有则重绘页面。</p>
-<p>那么，如何将旧数据存储起来，再进行比较呢？</p>
-<p>这就涉及数据的拷贝，我们现在就需要对一个object对象进行深拷贝，在这之前，我们可能会趟到浅拷贝的误区 。</p>
-<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>浅拷贝是指源对象与拷贝对象共用一份实体，仅仅是引用的变量不同（名称不同），对其中任何一个对象的改动都会影响另外一个对象。<br>举个例子，一个人一开始叫张三，后来改名叫李四了，可是还是同一个人，不管是张三缺胳膊少腿还是李四缺胳膊少腿，都是这个人倒霉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;</div><div class="line">    &apos;name&apos;: &apos;张三&apos;,</div><div class="line">    &quot;leg&quot;: &#123;</div><div class="line">        &quot;status&quot;: &quot;good&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var obj2 = obj1;</div><div class="line">obj2.name = &apos;李四&apos;;</div><div class="line">obj2.leg.status = &apos;broken&apos;;</div><div class="line"></div><div class="line">console.log(obj1) // &#123; name: &apos;李四&apos;, leg: &#123; status: &apos;broken&apos; &#125; &#125;</div><div class="line">console.log(obj2) // &#123; name: &apos;李四&apos;, leg: &#123; status: &apos;broken&apos; &#125; &#125;</div></pre></td></tr></table></figure></p>
-<p>因为浅拷贝只会将对象的各个属性进行依次复制，并不会进行递归复制，而 JavaScript 存储对象都是存地址的，所以浅拷贝会导致 obj1.leg 和 obj2.leg 指向同一块内存地址,例子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 假的深拷贝,只实现了第一层属性的拷贝</div><div class="line">var obj2 = Object.assign(&#123;&#125;,obj1);</div><div class="line">obj2.name = &apos;李四&apos;;</div><div class="line">obj2.leg.status =  &apos;broken&apos;;</div><div class="line"></div><div class="line">console.log(obj1) // &#123; name: &apos;张三&apos;, leg: &#123; status: &apos;broken&apos; &#125; &#125;</div><div class="line">console.log(obj2) // &#123; name: &apos;李四&apos;, leg: &#123; status: &apos;broken&apos; &#125; &#125;</div></pre></td></tr></table></figure></p>
-<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>深拷贝是指源对象与拷贝对象互相独立，其中任何一个对象的改动都不会对另外一个对象造成影响。</p>
-<p>举个例子，一个人名叫张三，后来用他克隆（假设法律允许）了另外一个人，叫李四，不管是张三缺胳膊少腿还是李四缺胳膊少腿都不会影响另外一个人。</p>
-<h3 id="实现深拷贝的方式"><a href="#实现深拷贝的方式" class="headerlink" title="实现深拷贝的方式"></a>实现深拷贝的方式</h3><p>1.简单粗暴的先把对象转成字符串，再把字符串转成对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj2 = JSON.parse(JSON.stringify(obj1));</div><div class="line">console.log(obj1) // &#123; name: &apos;张三&apos;, leg: &#123; status: &apos;good&apos; &#125; &#125;</div><div class="line">console.log(obj2) // &#123; name: &apos;李四&apos;, leg: &#123; status: &apos;broken&apos; &#125; &#125;</div></pre></td></tr></table></figure></p>
-<p>2、利用递归来实现深拷贝，如果对象属性的值是引用类型（Array,Object），那么对该属性进行深拷贝，直到遍历到属性的值是基本类型为止<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function deepClone(obj) &#123;</div><div class="line">    if (!obj &amp;&amp; typeof obj !== &apos;object&apos;) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    var newObj = obj.constructor === Array ? [] : &#123;&#125;;</div><div class="line">    for (var key in obj) &#123;</div><div class="line">        if (obj[key]) &#123;</div><div class="line">            if (obj[key] &amp;&amp; typeof obj[key] === &apos;object&apos;) &#123;</div><div class="line">                newObj[key] = obj[key].constructor === Array ? [] : &#123;&#125;;</div><div class="line">                // 递归</div><div class="line">                newObj[key] = deepClone(obj[key]);</div><div class="line">            &#125; else &#123;</div><div class="line">                newObj[key] = obj[key]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newObj;</div><div class="line">&#125;</div><div class="line">var obj2 = deepClone(obj1);</div><div class="line">console.log(obj1) // &#123; name: &apos;张三&apos;, leg: &#123; status: &apos;good&apos; &#125; &#125;</div><div class="line">console.log(obj2) // &#123; name: &apos;李四&apos;, leg: &#123; status: &apos;broken&apos; &#125; &#125;</div></pre></td></tr></table></figure></p>
-<p>实现了深拷贝，我们就可以对obj1和obj2进行比较,判断是否相等了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(obj1 === obj2)  // false;</div><div class="line">console.log(obj1 == obj2)  // false;</div></pre></td></tr></table></figure></p>
-<p>为什么都是false呢？这是因为我们实现的深拷贝后，2个对象是互相独立的，存储地址不同导致的结果。</p>
-<p>对于string,number等基础类型，“==“ 和 ”===” 是有区别的。不同类型间比较，“==”会自动转换成同一类型后的值看“值”是否相等，“===“如果类型不同，其结果就是不等。</p>
-<p>对于Array,Object等高级类型在比较相等时都会进行指针比较,所以”==”和”===”是没有区别的。</p>
-<p>我们是现今是要比较这2份数据内容是否相同，而不是比较这2个对象，所以需要再转换成字符串比较<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">console.log(JSON.stringify(obj1) == JSON.stringify(obj2)) // true</div></pre></td></tr></table></figure></p>
+        <h3 id="关于闭包"><a href="#关于闭包" class="headerlink" title="关于闭包"></a>关于闭包</h3><h4 id="闭包-——-有权访问另一个函数作用域中的变量的函数"><a href="#闭包-——-有权访问另一个函数作用域中的变量的函数" class="headerlink" title="闭包 —— 有权访问另一个函数作用域中的变量的函数"></a>闭包 —— 有权访问另一个函数作用域中的变量的函数</h4><p>即要满足以下四个条件</p>
+<ul>
+<li>函数A套函数B</li>
+<li>函数A中有一个变量a</li>
+<li>函数B引用变量a</li>
+<li>当函数B在定义它的作用域A以外的地方被调用时，它访问的依然是定义它时的作用域A。这种现象称之为闭包。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function A()&#123;</div><div class="line">  var a = 1;</div><div class="line">  </div><div class="line">  function B()&#123;</div><div class="line">    return a;</div><div class="line">  &#125;</div><div class="line">  return B;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var C=A();</div><div class="line">C();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>函数B嵌套在函数A内部；函数A返回函数B。这样在执行完var C=A( )后，变量C实际上是指向了函数B，再执行C( )后就会返回值a。这段代码其实就创建了一个闭包，因为函数A外的变量C引用了函数A内的函数B，也就是说：当函数A的内部函数B被函数A外的一个变量引用的时候，就创建了一个闭包。</p>
+<h4 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a>闭包的注意事项</h4><p>通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。但是，在创建了一个闭包以后，这个函数的作用域就会一直保存到闭包不存在为止。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function makeAdder(x) &#123;</div><div class="line">  return function(y) &#123;</div><div class="line">    return x + y;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var add5 = makeAdder(5);</div><div class="line">var add10 = makeAdder(10);</div><div class="line"></div><div class="line">console.log(add5(2));  // 7</div><div class="line">console.log(add10(2)); // 12</div><div class="line"></div><div class="line">// 释放对闭包的引用</div><div class="line">add5 = null;</div><div class="line">add10 = null;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>add5 和 add10 都是闭包。它们共享相同的函数定义，但是保存了不同的环境。在 add5 的环境中，x 为 5。而在 add10 中，x 则为 10。最后通过 null 释放了 add5 和 add10 对闭包的引用。</p>
+</blockquote>
+<p>闭包closure()只能取得包含函数func()中任何变量的最后一个值，这是因为闭包所保存的是整个变量对象，而不是某个特殊的变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">	var arr=[],i;</div><div class="line">	for(i=0;i&lt;3;i++)&#123;</div><div class="line">		arr[i] = function()&#123;</div><div class="line">			return i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return arr;</div><div class="line">&#125;</div><div class="line">var func = f();</div><div class="line"></div><div class="line"></div><div class="line">&gt; func</div><div class="line">结果：[function, function, function]</div><div class="line">&gt; func[0]</div><div class="line">结果:   function ()&#123;</div><div class="line">            return i;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>为什么是 i 而不是具体某个值？</p>
+<blockquote>
+<p>主要是因为闭包中局部变量是【引用】而不是拷贝，也就是说，这个时候的i仅仅只是i的引用而不是i的值。而因为是i的引用，所以到了外部函数执行完毕后（i已经加到10了），这个时候，i才被赋值给result数组，而此时，i的值为10</p>
+</blockquote>
+<p>再举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function say888() &#123;</div><div class="line">    var num = 887;</div><div class="line">    var sayAlert = function() &#123; alert(num); &#125;</div><div class="line">    num++;</div><div class="line">    return sayAlert;</div><div class="line">&#125;</div><div class="line"></div><div class="line">say888() =&gt; 888</div></pre></td></tr></table></figure>
+<p>如果要改变上面的那种情况，可以利用匿名函数的自我执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function createFunction ()&#123;</div><div class="line">    var result = new Array();</div><div class="line">    for(var i=0;i&lt;10;i++)&#123;</div><div class="line">        result[i] = function(num)&#123;</div><div class="line">    	    return function()&#123;</div><div class="line">    		return num;</div><div class="line">            &#125;</div><div class="line">	&#125;(i)</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这个时候的匿名函数相当于fn(0),fn(1),fn(2),<br>此时，数组result中保存的是函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">result[0]() = 0;</div><div class="line">result[1]() = 1;</div><div class="line">result[9]() = 9;</div></pre></td></tr></table></figure></p>
+<p>因为这个时候的 i 只是函数参数，而函数参数是按值传递的（不是按引用传递），所以这个时候匿名函数被强制执行。</p>
+</blockquote>
 
       
     </div>
@@ -390,18 +403,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/13/闭包/" rel="next" title="闭包">
-                <i class="fa fa-chevron-left"></i> 闭包
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/27/Git-2个分支间的切换保存/" rel="prev" title="Git-2个分支间的切换保存">
-                Git-2个分支间的切换保存 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/15/浅拷贝与深拷贝/" rel="prev" title="浅拷贝与深拷贝">
+                浅拷贝与深拷贝 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -531,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅拷贝"><span class="nav-number">1.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深拷贝"><span class="nav-number">2.</span> <span class="nav-text">深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现深拷贝的方式"><span class="nav-number">2.1.</span> <span class="nav-text">实现深拷贝的方式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于闭包"><span class="nav-number">1.</span> <span class="nav-text">关于闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包-——-有权访问另一个函数作用域中的变量的函数"><span class="nav-number">1.1.</span> <span class="nav-text">闭包 —— 有权访问另一个函数作用域中的变量的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包的注意事项"><span class="nav-number">1.2.</span> <span class="nav-text">闭包的注意事项</span></a></li></ol></li></ol></div>
             
 
           </div>
